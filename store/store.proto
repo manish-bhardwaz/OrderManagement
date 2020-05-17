@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package store;
+
+message Product {
+    string ID = 1;
+}
+
+message ProductQuantity {
+    string ProductID = 1;
+    int32 Quantity = 2;
+}
+
+service Quantity {
+    rpc Get(Product) returns (ProductQuantity){}
+    rpc Set(ProductQuantity) returns (ProductQuantity){}
+}
+
+message PaymentRequest {
+}
+
+message PaymentResponse{
+}
+
+service PaymentGateway {
+    rpc ProcessPayment(PaymentRequest) returns (PaymentResponse){}
+}
+
+message UserProduct {
+    string ID = 1;
+    bool Added = 2;
+    bool Paid = 3;
+    string ProductID = 4;
+}
+
+service Cart {
+    rpc AddToCart(UserProduct) returns (UserProduct){}
+}
+
+service Checkout {
+    rpc MakePayment(UserProduct) returns (UserProduct){}
+}
